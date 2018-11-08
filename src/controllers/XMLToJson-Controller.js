@@ -32,8 +32,8 @@ convertXMLToJson = (data) => {
 	// Constraints
 	let constraints_string = document.getElementsByTagName('constraints')[0].textContent;
 	let constraints = generate_constraints(constraints_string);
-	json['feature_tree']['constraints'] = constraints;
-	console.log(json)
+	json['constraints'] = constraints;
+
 	return JSON.stringify(json);
 }
 
