@@ -1,8 +1,10 @@
 const DOMParser = require('xmldom').DOMParser;
 
 exports.post = async(req, res, next) => {
-	let json = convertXMLToJson(req.files.sampleFile.data.toString());
+	console.log("Requisição Recebida!")
+	let json = convertXMLToJson(req.body.xmlString);
 	res.status(200).send(json);
+	next();
 }
 
 /* convert the XML document to json */
@@ -25,7 +27,7 @@ convertXMLToJson = (data) => {
 	// Tree
 	let tree_string = document.getElementsByTagName('feature_tree')[0].textContent;
 	let tree = generate_tree(tree_string);
-	json['feature_tree'] = tree;
+	json['feature_tree'] = [tree];
 
 	// Constraints
 	let constraints_string = document.getElementsByTagName('constraints')[0].textContent;
