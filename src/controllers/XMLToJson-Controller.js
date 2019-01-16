@@ -1,115 +1,167 @@
 const DOMParser = require('xmldom').DOMParser;
 
-exports.post = async(req, res, next) => {
-	console.log("Requisição Recebida!")
-	let json = convertXMLToJson(req.body.xmlString);
-	res.status(200).send(json);
-	next();
+exports.post = (req, res) => {
+    let json = convertXMLToJson(req.body.xmlString);
+    res.status(200).send(json);
 }
 
 /* convert the XML document to json */
 convertXMLToJson = (data) => {
-	let json = new Object();;	
-	let document = new DOMParser().parseFromString(data, 'text/xml');
+    let json = {};	
+    let document = new DOMParser().parseFromString(data, 'text/xml');
 
-	// Name of feature model	
-	let feature_model_name = document.getElementsByTagName('feature_model')[0].getAttribute('name');
-	json['name'] = feature_model_name;
+    // name of feature model	
+    let featureModelName = document.getElementsByTagName('feature_model')[0].getAttribute('name');
+    json['name'] = featureModelName;
 
-	// Meta of feature model
-	let feature_model_meta = document.getElementsByTagName('data');
-	for(index = 0;index < feature_model_meta.length;index++) {
-		let data_name = feature_model_meta[index].getAttribute('name');
-		let data_content = feature_model_meta[index].textContent;
-		json[data_name] = data_content;	
-	}
+    // meta of feature model
+    let featureModelMeta = document.getElementsByTagName('data');
+    for(index = 0;index < featureModelMeta.length;index++) {
+        let dataName = featureModelMeta[index].getAttribute('name');
+        let dataContent = featureModelMeta[index].textContent;
+        json[dataName] = dataContent;	
+    }
 
-	// Tree
-	let tree_string = document.getElementsByTagName('feature_tree')[0].textContent;
-	let tree = generate_tree(tree_string);
-	json['feature_tree'] = [tree];
+    // tree
+    let treeString = document.getElementsByTagName('feature_tree')[0].textContent;
+    let tree = generateTree(treeString);
+    json['feature_tree'] = [tree];
 
-	// Constraints
-	let constraints_string = document.getElementsByTagName('constraints')[0].textContent;
-	let constraints = generate_constraints(constraints_string);
-	json['constraints'] = constraints;
+    // constraints
+    let constraintsString = document.getElementsByTagName('constraints')[0].textContent;
+    let constraints = generateConstraints(constraintsString);
+    json['constraints'] = constraints;
 
-	return JSON.stringify(json);
+    // contexts
+    let contextElements = document.getElementsByTagName('context');
+    let contexts = generateContexts(contextElements);
+    json['contexts'] = contexts;
+
+    return JSON.stringify(json);
 }
 
 /* creates individual tree nodes from a string */
-generate_node = (node_string) => {
-	let id, type, name, multiplicity, children;
-	/* id */	
-	id = node_string.substring(node_string.indexOf('(') + 1, node_string.indexOf(')'));
-	/* type */
-	type = node_string.substring(node_string.indexOf(':') + 1, node_string.indexOf(':') + 2);
-	if (type == ' ') {
-		type = '';
-	}
-	/* name */
-	if (type == '') {
-		name = node_string.substring(node_string.indexOf(':') + 2, node_string.indexOf('('));
-	} else {
-		name = node_string.substring(node_string.indexOf(':') + 3, node_string.indexOf('('));
-	}	
-	/* children */
+generateNode = (nodeString) => {
+    let id, type, name, multiplicity, children;
+    
+    /* id */	
+    id = nodeString.substring(nodeString.indexOf('(') + 1, nodeString.indexOf(')'));
+    
+    /* type */
+    type = nodeString.substring(nodeString.indexOf(':') + 1, nodeString.indexOf(':') + 2);
+    
+    if (type == ' ') {
+        type = '';
+    }
+    
+    /* name */
+    if (type == '') {
+        name = nodeString.substring(nodeString.indexOf(':') + 2, nodeString.indexOf('('));
+    } else {
+        name = nodeString.substring(nodeString.indexOf(':') + 3, nodeString.indexOf('('));
+    }	
+    
+    /* children */
     children = [];
-	/* multiplicity */
-	if (type == 'g') {
-		multiplicity = node_string.substring(node_string.indexOf('[') + 1, node_string.indexOf(']'));
-	}
-	/* return object */
-	if (type == 'g') {
-		return { id, type, multiplicity, name, children };	
-	} else {
-		return { id, type, name, children };
-	}
+    
+    /* multiplicity */
+    if (type == 'g') {
+        multiplicity = nodeString.substring(nodeString.indexOf('[') + 1, nodeString.indexOf(']'));
+    }
+
+    /* return object */
+    if (type == 'g') {
+        return { id, type, multiplicity, name, children };	
+    } else {
+        return { id, type, name, children };
+    }
 }
 
 /* identifies the position of a node based on the id and inserts it */
-insert_node = (node, root_node) => {
-    if (root_node.id === node.id.substring(0, node.id.lastIndexOf('_'))) {
-        root_node.children.push(node);
+insertNode = (node, rootNode) => {
+    if (rootNode.id === node.id.substring(0, node.id.lastIndexOf('_'))) {
+        rootNode.children.push(node);
     } else {
-        for (index in root_node.children) {
-            if (node.id.indexOf(root_node.children[index].id) != -1) {
-                insert_node(node, root_node.children[index]);
-			}
-		}
-	}
+        for (index in rootNode.children) {
+            if (node.id.indexOf(rootNode.children[index].id) != -1) {
+                insertNode(node, rootNode.children[index]);
+            }
+        }
+    }
 }
 
 /* creates the tree based on a string */
-generate_tree = (tree_string) => {
-    let tree_array = tree_string.split('\n');
-    let root_node = null;
-    for (index in tree_array) {
-		if (tree_array[index] !== '') {
-		    let node = generate_node(tree_array[index]);
-		    if (root_node == null) {
-		        root_node = node;
-		    } else {
-		        insert_node(node, root_node);
-			}
-		}
-	}
-    return root_node;
+generateTree = (treeString) => {
+    let treeArray = treeString.split('\n');
+    let rootNode = null;
+
+    for (index in treeArray) {
+        if (treeArray[index] !== '') {
+            let node = generateNode(treeArray[index]);
+
+            if (rootNode == null) {
+                rootNode = node;
+            } else {
+                insertNode(node, rootNode);
+            }
+        }
+    }
+
+    return rootNode;
 }
 
 /* creates constraints based on a string */
-generate_constraints = (constraints_string) => {
-    let constraints_array = constraints_string.split('\n');
+generateConstraints = (constraintsString) => {
+    let constraintsArray = constraintsString.split('\n');
     let constraints = [];
-    for (index in constraints_array) {
-		let item = constraints_array[index];
-		if (item !== '') {
-		    let constraint = {};
-			let name = item.substring(0, item.indexOf(':'));
-			let value = item.substring(item.indexOf(':') + 1, item.length);
-			constraint[name] = value;
-			constraints.push(constraint);
-		}
-	}
+
+    for (index in constraintsArray) {
+        let item = constraintsArray[index];
+
+        if (item !== '') {
+            let constraint = {};
+            let name = item.substring(0, item.indexOf(':'));
+            let value = item.substring(item.indexOf(':') + 1, item.length);
+            constraint[name] = value;
+            constraints.push(constraint);
+        }
+    }
+
     return constraints;
+}
+
+/* create a set of contexts */
+generateContexts = (contextElements) => {
+    let contexts = [];
+
+    for (index = 0; index < contextElements.length; index++) {
+        contexts.push(generateContext(contextElements[index]));
+    }
+
+    return contexts;
+}
+
+/* create a context */
+generateContext = (contextElement) => {
+    let context = {
+        name: contextElement.getAttribute('name'),
+        resolutions: [],
+        constraints: []
+    };
+
+    // resolutions
+    let resolutions = contextElement.getElementsByTagName('resolution');
+    for(index = 0;index < resolutions.length;index++) {
+        let resolution = {};
+        resolution['feature_id'] = resolutions[index].getAttribute('id');
+        resolution['feature_name'] = resolutions[index].getAttribute('feature');
+        resolution['status'] = resolutions[index].getAttribute('status') === 'true';
+        context.resolutions.push(resolution);
+    }
+
+    // constraints
+    let constraintsString = contextElement.getElementsByTagName('constraints')[0].textContent;
+    context.constraints = generateConstraints(constraintsString);   
+
+    return context;
 }
