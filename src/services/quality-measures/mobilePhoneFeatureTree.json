@@ -1,0 +1,102 @@
+{
+  "name": "Mobile Phone Software",
+  "description": "MP Software",
+  "creator": "Tomás Martins",
+  "address": "",
+  "email": "thomasmartins@live.com.pt",
+  "phone": "",
+  "website": "",
+  "organization": "UPT",
+  "department": "",
+  "date": "",
+  "reference": "",
+  "feature_tree": [
+    {
+      "id": "_r",
+      "type": "r",
+      "name": "MP Software",
+      "children": [
+        {
+          "id": "_r_1",
+          "type": "m",
+          "name": "Calls",
+          "children": []
+        },
+        {
+          "id": "_r_2",
+          "type": "m",
+          "name": "Screen",
+          "children": [
+            {
+              "id": "_r_2_5",
+              "type": "g",
+              "multiplicity": "1,1",
+              "name": "",
+              "children": [
+                {
+                  "id": "_r_2_5_6",
+                  "type": "",
+                  "name": "Basic",
+                  "children": []
+                },
+                {
+                  "id": "_r_2_5_7",
+                  "type": "",
+                  "name": "Colour",
+                  "children": []
+                },
+                {
+                  "id": "_r_2_5_8",
+                  "type": "",
+                  "name": "High Res",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "_r_3",
+          "type": "o",
+          "name": "Media",
+          "children": [
+            {
+              "id": "_r_3_9",
+              "type": "g",
+              "multiplicity": "1,*",
+              "name": "",
+              "children": [
+                {
+                  "id": "_r_3_9_10",
+                  "type": "",
+                  "name": "Camera",
+                  "children": []
+                },
+                {
+                  "id": "_r_3_9_11",
+                  "type": "",
+                  "name": "MP3",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "_r_4",
+          "type": "o",
+          "name": "GPS",
+          "children": []
+        }
+      ]
+    }
+  ],
+  "constraints": [
+    {
+      "constraint_2": "_r_2_5_8 or ~_r_3_9_10"
+    },
+    {
+      "constraint_3": "~_r_4 or ~_r_2_5_6"
+    }
+  ]
+}
