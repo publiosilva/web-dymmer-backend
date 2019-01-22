@@ -122,7 +122,8 @@ generateConstraints = (constraintsString) => {
             let constraint = {};
             let name = item.substring(0, item.indexOf(':'));
             let value = item.substring(item.indexOf(':') + 1, item.length);
-            constraint[name] = value;
+            constraint['name'] = name;
+            constraint['value'] = value;
             constraints.push(constraint);
         }
     }
