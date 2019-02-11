@@ -16,6 +16,10 @@ exports.multipleCyclicDependentFeatures = async (featureModel) => {
             conFeatures.push(feature)
         })
     });
+    // remove duplicate items
+    conFeatures = conFeatures.filter( (elem, i ) => {
+        return conFeatures.indexOf( elem ) === i;
+    } );
 
     return await countFeatureConstraintsChildrenOfORGroups(feature_tree, conFeatures);
 }
