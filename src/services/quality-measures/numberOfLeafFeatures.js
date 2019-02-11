@@ -1,5 +1,5 @@
-exports.numberOfLeafFeatures = async (featureModel) => {
-    let featureTree = featureModel.feature_tree;
+exports.numberOfLeafFeatures = (featureModel) => {
+    let featureTree = featureModel.feature_tree[0];
 
     return countNumberOfLeafFeatures(featureTree);
 }
