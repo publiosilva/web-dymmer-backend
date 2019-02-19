@@ -346,19 +346,24 @@
   ],
   "constraints": [
     {
-      "constraint_1": "~_r_13_15 or _r_36_37_40"
+      "name": "constraint_1",
+      "value": "~_r_13_15 or _r_36_37_40"
     },
     {
-      "constraint_6": "_r_13_25 or ~_r_36_37_38"
+      "name": "constraint_6",
+      "value": "_r_13_25 or ~_r_36_37_38"
     },
     {
-      "constraint_4": "~_r_13_15_16 or ~_r_36_37_40_41_42_46_47"
+      "name": "constraint_4",
+      "value": "~_r_13_15_16 or ~_r_36_37_40_41_42_46_47"
     },
     {
-      "constraint_5": "~_r_13_25 or _r_36_37_38"
+      "name": "constraint_5",
+      "value": "~_r_13_25 or _r_36_37_38"
     },
     {
-      "constraint_3": "_r_13_15 or ~_r_36_37_40"
+      "name": "constraint_3",
+      "value": "_r_13_15 or ~_r_36_37_40"
     }
   ],
   "contexts": [
