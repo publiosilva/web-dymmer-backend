@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 // Carrega as Rotas
 const indexRoute = require('./routes/index-route');
 const XMLToJsonRoute = require('./routes/XMLToJson-Route');
+const user = require('./routes/user');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -22,5 +23,6 @@ app.use((req, res, next) => {
 
 app.use('/', indexRoute);
 app.use('/xml', XMLToJsonRoute);
+app.use('/users', user);
 
 module.exports = app;
