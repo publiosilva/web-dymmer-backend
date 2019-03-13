@@ -24,14 +24,14 @@ function normalizePort(val) {
     }
 }
 
-function onError(error){
-    if (error.syscall !== 'listen'){
+function onError(error) {
+    if (error.syscall !== 'listen') {
         throw error;
     }
 
     const bind = typeof PORT === 'string' ?
-    'Pipe' + PORT :
-    'Port' + PORT;
+        'Pipe' + PORT :
+        'Port' + PORT;
 
     switch (error.code) {
         case 'EACCES':
@@ -42,7 +42,7 @@ function onError(error){
             console.log(bind + 'is already in use')
             process.exit(1);
             break;
-    
+
         default:
             throw error;
     }

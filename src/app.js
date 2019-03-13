@@ -1,18 +1,19 @@
 'use strict';
 
-var express = require('express');
+const express = require('express');
 const fileUpload = require('express-fileupload');
-var bodyParser = require('body-parser');
-var app = express();
+const bodyParser = require('body-parser');
+const app = express();
 
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Carrega as Rotas
-const indexRoute = require('./routes/index-route');
-const XMLToJsonRoute = require('./routes/XMLToJson-Route');
-const user = require('./routes/user');
+// load routes
+const indexRoutes = require('./routes/indexRoutes');
+const XMLToJsonRoutes = require('./routes/XMLToJsonRoutes');
+const userRoutes = require('./routes/userRoutes');
+const featureModelRoutes = require('./routes/featureModelRoutes');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -21,8 +22,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/', indexRoute);
-app.use('/xml', XMLToJsonRoute);
-app.use('/users', user);
+app.use('/', indexRoutes);
+app.use('/xml', XMLToJsonRoutes);
+app.use('/users', userRoutes);
+app.use('/featuremodels', featureModelRoutes);
 
 module.exports = app;
