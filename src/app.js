@@ -14,6 +14,7 @@ const indexRoutes = require('./routes/indexRoutes');
 const XMLToJsonRoutes = require('./routes/XMLToJsonRoutes');
 const userRoutes = require('./routes/userRoutes');
 const featureModelRoutes = require('./routes/featureModelRoutes');
+const qualityMeasureRoutes = require('./routes/qualityMeasure');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -26,5 +27,6 @@ app.use('/', indexRoutes);
 app.use('/xml', XMLToJsonRoutes);
 app.use('/users', userRoutes);
 app.use('/featuremodels', featureModelRoutes);
+app.use('/qualitymeasures', qualityMeasureRoutes);
 
 module.exports = app;
