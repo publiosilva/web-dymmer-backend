@@ -5,9 +5,9 @@ exports.execute = async (featureModel) => {
     if (featureTree.children) {
         for (let i = 0; i < featureTree.children.length; i++) {
             if (featureTree.children[i].type == 'o')
-                response += await this.numberOfOptionalFeatures(featureTree.children[i]) + 1;
+                response += await this.execute(featureTree.children[i]) + 1;
             else
-                response += await this.numberOfOptionalFeatures(featureTree.children[i]);
+                response += await this.execute(featureTree.children[i]);
         }
     }
 
