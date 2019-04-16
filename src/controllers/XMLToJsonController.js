@@ -135,7 +135,7 @@ generateConstraints = (constraintsString) => {
 generateContexts = (contextElements) => {
     let contexts = [];
 
-    for (index = 0; index < contextElements.length; index++) {
+    for (let index = 0; index < contextElements.length; index++) {
         contexts.push(generateContext(contextElements[index]));
     }
 
@@ -152,7 +152,7 @@ generateContext = (contextElement) => {
 
     // resolutions
     let resolutions = contextElement.getElementsByTagName('resolution');
-    for (index = 0; index < resolutions.length; index++) {
+    for (let index = 0; index < resolutions.length; index++) {
         let resolution = {};
         resolution['feature_id'] = resolutions[index].getAttribute('id');
         resolution['feature_name'] = resolutions[index].getAttribute('feature');
@@ -162,7 +162,9 @@ generateContext = (contextElement) => {
 
     // constraints
     let constraintsString = contextElement.getElementsByTagName('constraints')[0].textContent;
-    context.constraints = generateConstraints(constraintsString);
+    if (constraintsString !== "") {
+        context.constraints = generateConstraints(constraintsString);
+    }
 
     return context;
 }
