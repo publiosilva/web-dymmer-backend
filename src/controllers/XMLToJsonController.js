@@ -161,9 +161,9 @@ generateContext = (contextElement) => {
     }
 
     // constraints
-    let constraintsString = contextElement.getElementsByTagName('constraints')[0].textContent;
-    if (constraintsString !== "") {
-        context.constraints = generateConstraints(constraintsString);
+    let contextConstraints = contextElement.getElementsByTagName('constraints');
+    if (contextConstraints.length !== 0 && contextConstraints[0].textContent !== "") {
+        context.constraints = generateConstraints(contextConstraints[0].textContent);
     }
 
     return context;
