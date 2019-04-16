@@ -58,7 +58,7 @@ const apply = async (req, res) => {
     for (let i = 0; i < req.body.measures.length; i++) {
         let element = req.body.measures[i];
         let appliedQualityMeasureResult = {
-            name: element.name,
+            measure: element,
             value: null
         };
         let path = '../core/qualitymeasures/' + element.file;
