@@ -12,6 +12,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "debug": "^4.0.1",
     "dotenv": "^7.0.0",
     "event-stream": "^3.3.4",

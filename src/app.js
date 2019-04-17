@@ -3,8 +3,10 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 app.use(fileUpload());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -15,13 +17,6 @@ const XMLToJsonRoutes = require('./routes/XMLToJsonRoutes');
 const userRoutes = require('./routes/userRoutes');
 const featureModelRoutes = require('./routes/featureModelRoutes');
 const qualityMeasureRoutes = require('./routes/qualityMeasure');
-
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    next();
-})
 
 app.use('/', indexRoutes);
 app.use('/xml', XMLToJsonRoutes);
