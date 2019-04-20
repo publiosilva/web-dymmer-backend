@@ -11,9 +11,9 @@
 const numberOfCrossTreeConstraints = require('./numberOfCrossTreeConstraints');
 const numberOfFeatures = require('./numberOfFeatures');
 
-exports.execute = (featureModel) => {
-    let nFri = numberOfCrossTreeConstraints.execute(featureModel);
-    let nOF = numberOfFeatures.execute(featureModel);
+exports.execute = async (featureModel) => {
+    let nFri = await numberOfCrossTreeConstraints.execute(featureModel);
+    let nOF = await numberOfFeatures.execute(featureModel);
 
     return nFri / nOF;
 }

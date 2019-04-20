@@ -1,14 +1,14 @@
 const numberOfFeatures = require('./numberOfFeatures');
 
 exports.execute = async (featureModel) => {
-    let featureTree = featureModel.feature_tree;
+    let featureTree = featureModel.feature_tree[0];
     let numberOfEdges = countNumberOfEdges(featureTree);
-    let NF = numberOfFeatures.numberOfFeatures(featureTree);
+    let NF = await numberOfFeatures.execute(featureModel);
 
     return numberOfEdges / NF;
 }
 
-countNumberOfEdges = (featureTree) => {
+const countNumberOfEdges = (featureTree) => {
     let numberOfEdges = 0;
 
     featureTree.children.forEach(node => {

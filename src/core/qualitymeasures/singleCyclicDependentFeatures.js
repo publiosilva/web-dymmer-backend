@@ -1,5 +1,5 @@
 exports.execute = async (featureModel) => {
-    let featureTree = featureModel.feature_tree;
+    let featureTree = featureModel.feature_tree[0];
     let constraints = featureModel.constraints;
 
     return countSingleCyclicDependentFeatures(featureTree, constraints);
