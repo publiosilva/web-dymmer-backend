@@ -11,6 +11,6 @@ router.get('/list', qualityMeasureController.list);
 router.get('/get/:qualityMeasureId', qualityMeasureController.get);
 // router.put('/update/:qualityMeasureId', qualityMeasureController.update);
 // router.delete('/remove/:qualityMeasureId', qualityMeasureController.remove);
-router.get('/apply/:featureModelId', qualityMeasureController.apply);
+router.post('/apply/:featureModelId', qualityMeasureController.apply);
 
 module.exports = router;
