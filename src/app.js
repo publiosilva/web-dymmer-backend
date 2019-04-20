@@ -16,8 +16,8 @@ const indexRoutes = require('./routes/indexRoutes');
 const XMLToJsonRoutes = require('./routes/XMLToJsonRoutes');
 const userRoutes = require('./routes/userRoutes');
 const featureModelRoutes = require('./routes/featureModelRoutes');
-const qualityMeasureRoutes = require('./routes/qualityMeasure');
-const qualityMeasureDatasetRoutes = require('./routes/qualityMeasureDataset');
+const qualityMeasureRoutes = require('./routes/qualityMeasureRoutes');
+const qualityMeasureDatasetRoutes = require('./routes/qualityMeasureDatasetRoutes');
 const valeThresholdsRoutes = require('./routes/valeThresholdsRoutes');
 
 app.use('/', indexRoutes);
