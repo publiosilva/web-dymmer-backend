@@ -56,12 +56,9 @@ const apply = async (req, res) => {
     const appliedQualityMeasuresList = [];
 
     for (let i = 0; i < req.body.measures.length; i++) {
-        let element = req.body.measures[i];
-        let appliedQualityMeasureResult = {
-            measure: element,
-            value: null
-        };
-        let path = '../core/qualitymeasures/' + element.file;
+        let measure = req.body.measures[i];
+        let appliedQualityMeasureResult = Object.assign(measure, { value: null });
+        let path = '../core/qualitymeasures/' + measure.file;
         appliedQualityMeasureResult.value = await require(path).execute(JSON.parse(returnedFeatureModel.featureModelJson));
         appliedQualityMeasuresList.push(appliedQualityMeasureResult);
     }
