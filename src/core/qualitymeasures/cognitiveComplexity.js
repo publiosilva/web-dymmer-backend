@@ -8,7 +8,7 @@
 const numberGroupesOr = require('./numberGroupesOr');
 const numberGroupesXor = require('./numberGroupesXor');
 
-exports.execute = (featureModel) => {
+exports.execute = async (featureModel) => {
     let nOr = await numberGroupesOr.execute(featureModel);
     let nXor = await numberGroupesXor.execute(featureModel);
     

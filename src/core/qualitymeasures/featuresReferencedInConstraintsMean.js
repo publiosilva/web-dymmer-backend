@@ -8,12 +8,13 @@ exports.execute = (featureModel) => {
     return 0;
 }
 
-countNumberOfFeaturesReferencedInConstraints = (constraints) => {
+countNumberOfFeaturesReferencedInConstraints = async (constraints) => {
     let numberOfFeaturesReferencedInConstraints = 0;
 
-    constraints.forEach(constraint => {
+    for (let i = 0; i < constraints.length; i++) {
+        let constraint = constraints[i];
         numberOfFeaturesReferencedInConstraints += await countNumberOfFeaturesInAConstraint(constraint.value);
-    });
+    }
 
     return numberOfFeaturesReferencedInConstraints;
 }
@@ -23,10 +24,10 @@ countNumberOfFeaturesInAConstraint = async (constraint) => {
 
     let start = constraint.indexOf('_');
     let index = start;
-    
+
     while (index !== -1 && index === start) {
         index = constraint.indexOf(' ');
-        
+
         if (index === -1) {
             numberOfFeaturesInAConstraint += 1;
         } else if (index > start) {

@@ -4,7 +4,7 @@ exports.execute = async (featureModel) => {
     let featureTree = featureModel.feature_tree[0];
 
     let numberOfFeaturesChildrenOGroupsOr = countNumberOfFeaturesChildrenOfGroupsOr(featureTree);
-    let NF = numberOfFeatures.numberOfFeatures(featureTree);
+    let NF = await numberOfFeatures.execute(featureModel);
 
     return numberOfFeaturesChildrenOGroupsOr / NF;
 }

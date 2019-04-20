@@ -5,7 +5,7 @@ const numberOfOptionalFeatures = require('./numberOfOptionalFeatures');
 exports.execute = async (featureModel) => {
     let featureTree = featureModel.feature_tree[0];
 
-    let numberOfGroupingFeatures = await numberGroupesOr.numberGroupesOr(featureTree) + await numberGroupesXor.numberGroupesXor(featureTree);
+    let numberOfGroupingFeatures = await numberGroupesOr.execute(featureModel) + await numberGroupesXor.execute(featureModel);
 
-    return numberOfGroupingFeatures + await numberOfOptionalFeatures.numberOfOptionalFeatures(featureTree);
+    return numberOfGroupingFeatures + await numberOfOptionalFeatures.execute(featureModel);
 }

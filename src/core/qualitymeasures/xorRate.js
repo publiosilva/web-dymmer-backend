@@ -1,10 +1,10 @@
 const numberOfFeatures = require('./numberOfFeatures');
 
 exports.execute = async (featureModel) => {
-    let featureTree = featureModel.feature_tree;
+    let featureTree = featureModel.feature_tree[0];
 
     let numberOfFeaturesChildrenOGroupsXor = countNumberOfFeaturesChildrenOfGroupsXor(featureTree);
-    let NF = numberOfFeatures.numberOfFeatures(featureTree);
+    let NF = await numberOfFeatures.execute(featureModel);
 
     return numberOfFeaturesChildrenOGroupsXor / NF;
 }

@@ -9,9 +9,9 @@
 const numberOfOptionalFeatures = require('./numberOfOptionalFeatures');
 const numberOfFeatures = require('./numberOfFeatures');
 
-exports.execute = (featureModel) => {
-    let nO = numberOfOptionalFeatures.execute(featureModel);
-    let nOF = numberOfFeatures.execute(featureModel);
+exports.execute = async (featureModel) => {
+    let nO = await numberOfOptionalFeatures.execute(featureModel);
+    let nOF = await numberOfFeatures.execute(featureModel);
 
     return nO / nOF;
 }
