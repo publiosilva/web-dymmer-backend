@@ -73,6 +73,7 @@ const groupEqualQualityMeasureValues = (qualityMeasureList, qualityMeasureValues
     });
 }
 
+// step 5
 const calculateThresholds = (qualityMeasureList, qualityMeasuresValuesList) => {
     let qualityMeasureThresholdList = [];
 
