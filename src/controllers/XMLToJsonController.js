@@ -147,7 +147,8 @@ generateContext = (contextElement) => {
     let context = {
         name: contextElement.getAttribute('name'),
         resolutions: [],
-        constraints: []
+        constraints: [],
+        isTheCurrent: false
     };
 
     // resolutions
