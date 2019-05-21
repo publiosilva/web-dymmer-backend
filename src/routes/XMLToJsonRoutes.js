@@ -6,7 +6,7 @@ const authMiddleware = require('../middlewares/authentication');
 
 const XMLToJsonController = require('../controllers/XMLToJsonController');
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.post('/xml-to-json', XMLToJsonController.post);
 

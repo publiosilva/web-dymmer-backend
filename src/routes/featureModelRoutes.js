@@ -4,7 +4,7 @@ const authMiddleware = require('../middlewares/authentication');
 
 const router = express.Router();
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 router.post('/create', featureModelController.create);
 router.get('/list', featureModelController.list);
