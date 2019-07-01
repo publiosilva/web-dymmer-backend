@@ -3,8 +3,14 @@ const numberOfContexts = require('./numberOfContexts');
 exports.execute = async (featureModel) => {
     let contexts = featureModel.contexts;
     let numberOfActivatedFeatures = await countNumberOfActivatedFeatures(contexts);
+    let NC = await numberOfContexts.execute(featureModel);
 
-    return numberOfActivatedFeatures / await numberOfContexts.execute(featureModel);
+    // If is a SPL
+    if (NC === 0) {
+        return 0;
+    }
+
+    return numberOfActivatedFeatures / NC;
 };
 
 const countNumberOfActivatedFeatures = async (contexts) => {
