@@ -52,14 +52,14 @@ const remove = async (req, res) => {
 }
 
 const apply = async (req, res) => {
-    const returnedFeatureModel = await featureModel.findById(req.params.featureModelId);
+    const featureModel = req.body.featureModel;
     const appliedQualityMeasuresList = [];
 
     for (let i = 0; i < req.body.measures.length; i++) {
         let measure = req.body.measures[i];
         let appliedQualityMeasureResult = Object.assign(measure, { value: null });
         let path = '../core/qualitymeasures/' + measure.file;
-        appliedQualityMeasureResult.value = await require(path).execute(JSON.parse(returnedFeatureModel.featureModelJson));
+        appliedQualityMeasureResult.value = await require(path).execute(JSON.parse(featureModel.featureModelJson));
         appliedQualityMeasuresList.push(appliedQualityMeasureResult);
     }
 
