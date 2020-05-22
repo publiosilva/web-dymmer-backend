@@ -1,11 +1,6 @@
 const mongoose = require('../database/index');
 
 const featureModelSchema = new mongoose.Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     featureModelJson: {
         type: String,
         required: true,

@@ -2,7 +2,7 @@ const featureModel = require('../models/featureModel');
 
 const create = async (req, res) => {
     try {
-        const newFeatureModel = await featureModel.create({ ...req.body, user: req.userId });
+        const newFeatureModel = await featureModel.create(req.body);
 
         return res.status(200).send({ newFeatureModel });
     } catch (err) {
@@ -33,8 +33,7 @@ const get = async (req, res) => {
 const update = async (req, res) => {
     try {
         const updatedFeatureModel = await featureModel.findByIdAndUpdate(req.params.featureModelId, {
-            ...req.body,
-            user: req.userId
+            ...req.body
         }, { new: true });
 
         return res.status(200).send({ updatedFeatureModel });
