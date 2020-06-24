@@ -1,7 +1,7 @@
 exports.execute = async (featureModel) => {
     const [featureTree] = featureModel.feature_tree;
 
-    return singleHotspotFeatures();
+    return singleHotspotFeatures(featureTree);
 };
 
 function singleHotspotFeatures(featureTree) {
