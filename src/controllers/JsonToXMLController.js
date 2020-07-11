@@ -2,7 +2,7 @@ const fs = require("fs");
 const tmp = require("tmp");
 
 exports.post = (req, res) => {
-    const { featureModel } = req.body;
+    const { featureModel, withContexts } = req.body;
 
     const featureModelStr = convertJsonToXML(featureModel);
 
@@ -16,7 +16,7 @@ exports.post = (req, res) => {
     return res.download(fileName);
 };
 
-function convertJsonToXML(featureModel) {
+function convertJsonToXML(featureModel, withContexts) {
     const {
         name,
         description,
@@ -31,6 +31,7 @@ function convertJsonToXML(featureModel) {
         reference,
         feature_tree,
         constraints,
+        contexts,
     } = featureModel;
     const [featureTree] = feature_tree;
 
@@ -54,6 +55,7 @@ ${generateFeatureTreeStr(featureTree)}
             <constraints>
 ${generateConstraintsStr(constraints)}
             </constraints>
+${withContexts ? generateContextsStr(contexts) : ""}
         </feature_model>
     `;
 }
@@ -75,6 +77,41 @@ function generateConstraintsStr(constraints) {
 
     constraints.forEach((element) => {
         str += `${"\t".repeat(3)}${element.name}:${element.value}\n`;
+    });
+
+    return str;
+}
+
+function generateContextsStr(contexts) {
+    let str = "";
+
+    contexts.forEach((element) => {
+        str += `
+            <context name="${element.name}">
+${generateContextResolutionsStr(element.resolutions)}
+${generateContextConstraintsStr(element.constraints)}
+            </context>\n
+        `;
+    });
+
+    return str;
+}
+
+function generateContextResolutionsStr(resolutions) {
+    let str = "";
+
+    resolutions.forEach((element) => {
+        str += `<resolution feature="${element.feature_name}" id="${element.feature_id}" status="${element.status}"/>\n`;
+    });
+
+    return str;
+}
+
+function generateContextConstraintsStr(constraints) {
+    let str = "";
+
+    constraints.forEach((element) => {
+        str += `<constraint>${element}</constraint>\n`;
     });
 
     return str;
