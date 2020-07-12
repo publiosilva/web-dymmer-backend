@@ -1,0 +1,30 @@
+{
+  "name": "dymmer-extension",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "sucrase ./src -d ./dist --transforms imports",
+    "dev": "nodemon src --exec sucrase-node src",
+    "lint": "eslint --fix ./src/ --ext .js",
+    "start": "node dist"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
+    "sucrase": "^3.15.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20",
+    "tau-prolog": "^0.2.81"
+  }
+}
