@@ -12,11 +12,11 @@ routes.get('/', (req, res) => {
   });
 });
 
-routes.get('/feature-models', FeatureModelController.index);
-routes.get('/feature-models/:id', FeatureModelController.show);
-routes.post('/feature-models', FeatureModelController.store);
-routes.put('/feature-models/:id', FeatureModelController.update);
-routes.delete('/feature-models/:id', FeatureModelController.destroy);
+// routes.get('/feature-models', FeatureModelController.index);
+// routes.get('/feature-models/:id', FeatureModelController.show);
+// routes.post('/feature-models', FeatureModelController.store);
+// routes.put('/feature-models/:id', FeatureModelController.update);
+// routes.delete('/feature-models/:id', FeatureModelController.destroy);
 
 routes.post(
   '/feature-models/validate',
