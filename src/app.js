@@ -19,6 +19,7 @@ const featureModelRoutes = require("./routes/featureModelRoutes");
 const qualityMeasureRoutes = require("./routes/qualityMeasureRoutes");
 const qualityMeasureDatasetRoutes = require("./routes/qualityMeasureDatasetRoutes");
 const valeThresholdsRoutes = require("./routes/valeThresholdsRoutes");
+const jsonToXMLRoutes = require("./routes/jsonToXMLRoutes");
 
 app.use("/", indexRoutes);
 app.use("/xml", XMLToJsonRoutes);
@@ -27,5 +28,6 @@ app.use("/featuremodels", featureModelRoutes);
 app.use("/qualitymeasures", qualityMeasureRoutes);
 app.use("/qualitymeasuredatasets", qualityMeasureDatasetRoutes);
 app.use("/valemethod", valeThresholdsRoutes);
+app.use("/featuremodels", jsonToXMLRoutes);
 
 module.exports = app;
